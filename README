@@ -1,0 +1,2 @@
+## jalankan diterminal php -S 127.0.0.1:8080 sehingga tidak perlu menulis manual path root-nya 
+cukup menjalankan 127.0.0.1:8080
