@@ -12,11 +12,21 @@ class Solution{
     public $nm_solusi;
     public $keterangan;
 
-    public function __construct($connection){
+    public function __construct($connection = null){
         $this->conn = $connection;
     }
 
-    public function getDiseaseSolution($id_penyakit){
+    public function create($id_solusi,$kd_solusi,$nm_solusi,$keterangan){
+        $this->id_solusi = $id_solusi;
+        $this->kd_solusi = $kd_solusi;
+        $this->nm_solusi = $nm_solusi;
+        $this->keterangan = $keterangan;
+    }
 
+    public function getSolutions(){
+        $query = "SELECT id_solusi, kd_solusi, nm_solusi, keterangan FROM cbr_solusi";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
     }
 }

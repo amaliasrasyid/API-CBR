@@ -12,8 +12,16 @@ class Disease{
     public $nm_penyakit;
     public $definisi;
 
-    public function __construct($connection){
+    public function __construct($connection=null){
         $this->conn = $connection;
+    }
+
+    public function create($id_penyakit,$kd_penyakit,$nm_penyakit,$definisi)
+    {
+        $this->id_penyakit = $id_penyakit;
+        $this->kd_penyakit = $kd_penyakit;
+        $this->nm_penyakit = $nm_penyakit;
+        $this->definisi = $definisi;
     }
 
     public function getDiseases(){
