@@ -16,7 +16,7 @@ class Disease{
         $this->conn = $connection;
     }
 
-    public function create($id_penyakit,$kd_penyakit,$nm_penyakit,$definisi)
+    public function init($id_penyakit,$kd_penyakit,$nm_penyakit,$definisi)
     {
         $this->id_penyakit = $id_penyakit;
         $this->kd_penyakit = $kd_penyakit;

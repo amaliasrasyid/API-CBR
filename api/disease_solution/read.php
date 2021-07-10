@@ -45,12 +45,12 @@ if($itemCount > 0){
             extract($row);
             //moving each var that have been extracted into object DiseaseSolution
             $disease = new Disease();
-            $disease->create($id_penyakit,$kd_penyakit,$nm_penyakit,$definisi);
+            $disease->init($id_penyakit,$kd_penyakit,$nm_penyakit,$definisi);
 
             $solution = new Solution();
-            $solution->create($id_solusi,$kd_solusi,$nm_solusi,$keterangan);
+            $solution->init($id_solusi,$kd_solusi,$nm_solusi,$keterangan);
 
-            $dsSolution->create($id_penyakit_solusi,$disease,$solution);
+            $dsSolution->init($id_penyakit_solusi,$disease,$solution);
             array_push($response['result'],$dsSolution);
         }
         echo json_encode($response);

@@ -16,7 +16,7 @@ class Solution{
         $this->conn = $connection;
     }
 
-    public function create($id_solusi,$kd_solusi,$nm_solusi,$keterangan){
+    public function init($id_solusi,$kd_solusi,$nm_solusi,$keterangan){
         $this->id_solusi = $id_solusi;
         $this->kd_solusi = $kd_solusi;
         $this->nm_solusi = $nm_solusi;
