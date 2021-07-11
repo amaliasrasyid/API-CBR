@@ -25,6 +25,7 @@ if($idPenyakit == 0){
             'message' => "input id_penyakit tidak boleh kosong"
         )
     );
+    http_response_code(404);
     return;
 }
 
