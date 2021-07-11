@@ -1,2 +1,9 @@
 ## jalankan diterminal  sehingga tidak perlu menulis manual path root-nya 
 cukup menjalankan php -S 127.0.0.1:8080
+
+
+PROBLEM:
+bentuk hasil data saat 
+1. list solusi penyakit
+2. list gejala konsultasi (berdasarkan kategorinya)
+3. (BUG) tidak bisa uncheckbox

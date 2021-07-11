@@ -16,6 +16,12 @@ class SymptompCategory{
         $this->conn = $connection;
     }
 
+    public function init($id_gejala_kategori,$gejala_kategori,$keterangan){
+        $this->id_gejala_kategori = $id_gejala_kategori;
+        $this->gejala_kategori = $gejala_kategori;
+        $this->keterangan = $keterangan;
+    }
+
     public function getSymptompCategory(){
         $query = "SELECT gk.* FROM cbr_gejala_kategori gk ORDER BY id_gejala_kategori ASC";
         $stmt = $this->conn->prepare($query);
