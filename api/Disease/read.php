@@ -23,7 +23,7 @@ $itemCount = $stmt->rowCount();
 if($itemCount > 0){
     if(http_response_code() == 200){
         $response = array(
-            'code' => '200',
+            'code' => 200,
             'message' => 'Data Penyakit berhasil diperoleh',
             'result' => array()
         );
@@ -55,7 +55,7 @@ else{
     echo json_encode(
         array(
             "message" => "Data Penyakit kosong!",
-            'code' => "204",
+            'code' => 204,
             'result' => array()
         )
     );
