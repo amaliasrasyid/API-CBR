@@ -37,7 +37,7 @@ if($stmt){
         $response = array(
             'code' => 200,
             'message' => 'Berhasil membuat konsultasi',
-            'result' => array()
+            'result' => new stdClass()
         );
         //fetch last inserted data
         $stmt = $consultation->getLastCreatedConsultation();
@@ -48,7 +48,7 @@ if($stmt){
                 'nama' => $nama,
                 'tanggal' => convertToIndoDate($tanggal)
             );
-            array_push($response['result'],$item);
+            $response['result'] = $item;
         }
         echo json_encode($response);
     }
@@ -57,8 +57,8 @@ if($stmt){
     echo json_encode(
         array(
             'message' => 'Gagal membuat konsultasi',
-            'code' => '409',
-            'result' => array()
+            'code' => 409,
+            'result' => new stdClass()
         )
     );
 }
