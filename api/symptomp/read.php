@@ -1,14 +1,6 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
+require_once '../../config/HeaderTemplate.php';
 
-// include database,helper, and object files
-include_once '../../config/DbConnection.php';
-include_once '../../model/Symptomp.php';
-include_once '../../model/SymptompCategory.php';
-include_once '../../helper/HttpResponseMessage.php';
-
-// instantiate database
 $dbConn = new DbConnection();
 $db = $dbConn->getConnection();
 
