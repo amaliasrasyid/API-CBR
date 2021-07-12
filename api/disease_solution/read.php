@@ -38,19 +38,18 @@ if($itemCount > 0){
     if(http_response_code() == 200){
         $response = array(
             'code' => 200,
-            'message' => 'Data Terapi Pengobatan berhasil diperoleh',
+            'message' => 'Data Solusi Penyaki berhasil diperoleh',
             'result' => array()
         );
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
             //moving each var that have been extracted into object DiseaseSolution
-            $disease = new Disease();
-            $disease->init($id_penyakit,$kd_penyakit,$nm_penyakit,$definisi);
 
             $solution = new Solution();
             $solution->init($id_solusi,$kd_solusi,$nm_solusi,$keterangan);
 
-            $dsSolution->init($id_penyakit_solusi,$disease,$solution);
+            $dsSolution = new DiseaseSolution();
+            $dsSolution->init($id_penyakit_solusi,$id_penyakit,$solution);
             array_push($response['result'],$dsSolution);
         }
         echo json_encode($response);
