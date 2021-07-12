@@ -34,7 +34,6 @@ class ConsultationResult{
         while($row = $listCase->fetch(PDO::FETCH_ASSOC)){
             //Hitung nilai total kesamaan gejala pasien dengan kasus
             extract($row);
-            // var_dump($row);
             $qDataPatient = $this->executeQuery("SELECT SUM(c.bobot_parameter) as jml_1
                             FROM cbr_kasus as a, cbr_kasus_gejala as b, cbr_gejala as c, cbr_konsultasi_gejala as d
                             WHERE a.id_kasus=b.id_kasus AND b.id_gejala=c.id_gejala AND b.id_gejala=d.id_gejala 
@@ -42,7 +41,6 @@ class ConsultationResult{
             $qDataCase = $this->executeQuery("SELECT SUM(c.bobot_parameter) as jml_2
                             FROM cbr_kasus as a, cbr_kasus_gejala as b, cbr_gejala as c
                             WHERE a.id_kasus=b.id_kasus AND b.id_gejala=c.id_gejala AND a.id_kasus=$id_kasus");
-            // var_dump($id_kasus);
             //extract data
             extract($qDataPatient->fetch(PDO::FETCH_ASSOC));
             extract($qDataCase->fetch(PDO::FETCH_ASSOC));
@@ -50,13 +48,10 @@ class ConsultationResult{
             if($jml_2 > 0){
                 $hasil = $jml_1/$jml_2;
             }
-            // var_dump($hasil);
             if($hasil > 0){
                 //check if data exist
                 $oldData = $this->executeQuery("SELECT id_konsultasi, id_kasus, nilai FROM cbr_konsultasi_hasil WHERE id_konsultasi=$id_konsultasi AND id_penyakit=$id_penyakit");
                 extract($oldData->fetch(PDO::FETCH_ASSOC));
-                // var_dump($row['id_kasus']);
-                // var_dump($oldData->rowCount() == 0);
                 if($oldData->rowCount() == 0){
                     $this->executeQuery("INSERT INTO cbr_konsultasi_hasil (id_konsultasi, id_kasus, id_penyakit, nilai, status) 
                         VALUES ($id_konsultasi, $id_kasus, $id_penyakit, $hasil, 1)");

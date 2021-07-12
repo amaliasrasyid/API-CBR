@@ -8,7 +8,6 @@ include_once '../../model/ConsultationResult.php';
 include_once '../../model/Kasus.php';
 include_once '../../model/Disease.php';
 include_once '../../helper/HttpResponseMessage.php';
-include_once '../../helper/FormatNumber.php';
 
 // instantiate database
 $dbConn = new DbConnection();

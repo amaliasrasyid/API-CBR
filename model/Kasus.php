@@ -21,7 +21,6 @@ class Kasus {
     public function init($id_kasus,$nama,$tanggal,$status){
         $this->id_kasus = $id_kasus;
         $this->nama = $nama;
-        // $this->id_penyakit = $id_penyakit;
         $this->tanggal = $tanggal;
         $this->status = $status;
     }
