@@ -1,5 +1,5 @@
 <?php
-require_once '../../config/HeaderTemplate.php';
+require_once '../../utils/HeaderTemplate.php';
 
 // instantiate database
 $dbConn = New DbConnection();

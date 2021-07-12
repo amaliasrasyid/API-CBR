@@ -1,5 +1,5 @@
 <?php
-require_once '../../config/HeaderTemplate.php';
+require_once '../../utils/HeaderTemplate.php';
 
 $dbConn = new DbConnection();
 $db = $dbConn->getConnection();
