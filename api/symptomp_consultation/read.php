@@ -45,16 +45,11 @@ if($itemCount > 0){
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
             //storing each var that have been extracted into each object 
-            $consultation = new Consultation();
-            $consultation->init($id_konsultasi,$nama,$tanggal);
-
-            $sympCategory = new SymptompCategory();
-            $sympCategory->init($id_gejala_kategori,$gejala_kategori,$keterangan);
 
             $symptomp = new Symptomp();
-            $symptomp->init($id_gejala,$kd_gejala,$nm_gejala,$bobot_parameter,$keterangan,$sympCategory);
+            $symptomp->init($id_gejala,$kd_gejala,$nm_gejala,$bobot_parameter,$id_gejala_kategori);
 
-            $sympConsul->init($id_konsultasi_gejala, $consultation,$symptomp,$status);
+            $sympConsul->init($id_konsultasi_gejala, $id_konsultasi,$symptomp,$status);
             array_push($response['result'],$sympConsul);
         }
         echo json_encode($response);

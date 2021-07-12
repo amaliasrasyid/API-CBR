@@ -8,7 +8,7 @@ class SymptomConsultation {
 
     //table column
     public $id_konsultasi_gejala;
-    public $consultation;
+    public $id_konsultasi;
     public $symptomp;
     public $status;
 
@@ -17,9 +17,9 @@ class SymptomConsultation {
         $this->conn = $connection;
     }
 
-    public function init($id_konsultasi_gejala, $consultation,$symptomp,$status){
+    public function init($id_konsultasi_gejala, $id_konsultasi,$symptomp,$status){
         $this->id_konsultasi_gejala = $id_konsultasi_gejala;
-        $this->consultation = $consultation;
+        $this->id_konsultasi = $id_konsultasi;
         $this->symptomp = $symptomp;
         $this->status = $status;
     }
@@ -47,9 +47,12 @@ class SymptomConsultation {
     }
 
     public function getSymptompConsultation($id_konsultasi){
-        $query = "SELECT a.*,b.*, c.*, d.*
-             FROM cbr_konsultasi_gejala a, cbr_konsultasi b, cbr_gejala c, cbr_gejala_kategori d
-            WHERE b.id_konsultasi = a.id_konsultasi AND a.id_konsultasi_gejala = $id_konsultasi";
+        $query = "SELECT a.*,b.id_konsultasi, c.*, d.id_gejala_kategori
+                FROM cbr_konsultasi_gejala a, cbr_konsultasi b, cbr_gejala c, cbr_gejala_kategori d
+                WHERE a.id_konsultasi = b.id_konsultasi AND 
+                a.id_gejala = c.id_gejala AND 
+                c.id_gejala_kategori = d.id_gejala_kategori AND
+                a.id_konsultasi =$id_konsultasi";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
