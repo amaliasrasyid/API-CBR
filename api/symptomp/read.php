@@ -42,12 +42,8 @@ if($itemCount > 0){
         );
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
-            //storing data category in an object
-            $sympCategory = new SymptompCategory();
-            $sympCategory->init($id_gejala_kategori,$gejala_kategori,$keterangan);
-            
             $item = new Symptomp();
-            $item->init($id_gejala,$kd_gejala,$nm_gejala,$bobot_parameter,$keterangan,$sympCategory);
+            $item->init($id_gejala,$kd_gejala,$nm_gejala,$bobot_parameter,$id_gejala_kategori);
             array_push($response['result'],$item);
         }
         echo json_encode($response);

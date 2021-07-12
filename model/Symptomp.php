@@ -11,25 +11,23 @@ class Symptomp {
     public $kd_gejala;
     public $nm_gejala;
     public $bobot_parameter;
-    public $keterangan;
-    public $sympCategory;
+    public $id_gejala_kategori;
 
     public function __construct($connection = null)
     {
         $this->conn = $connection;
     }
 
-    public function init($id_gejala,$kd_gejala,$nm_gejala,$bobot_parameter,$keterangan,$sympCategory){
+    public function init($id_gejala,$kd_gejala,$nm_gejala,$bobot_parameter,$id_gejala_kategori){
         $this->id_gejala = $id_gejala;
         $this->kd_gejala = $kd_gejala;
         $this->nm_gejala = $nm_gejala;
         $this->bobot_parameter = $bobot_parameter;
-        $this->keterangan = $keterangan;
-        $this->sympCategory = $sympCategory;
+        $this->id_gejala_kategori = $id_gejala_kategori;
     }
 
     public function getSymptompByCategory($id_kategori_gejala){
-        $query = "SELECT a.*, b.* 
+        $query = "SELECT a.*, b.id_gejala_kategori
             FROM cbr_gejala as a, cbr_gejala_kategori as b
             WHERE a.id_gejala_kategori=b.id_gejala_kategori AND a.id_gejala_kategori=$id_kategori_gejala
             ORDER BY a.kd_gejala ASC";
