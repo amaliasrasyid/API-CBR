@@ -8,8 +8,10 @@ $db = $dbConn->getConnection();
 // initialize object
 $sympConsul = new SymptomConsultation($db);
 
-//input
-$idKonsultasi= isset($_POST['id_konsultasi']) ? $_POST['id_konsultasi'] : '';
+//query params
+$queryParam = parse_url($_SERVER['QUERY_STRING']);
+parse_str($queryParam['path'],$result);
+$idKonsultasi = $result['id'] ? $result['id'] :  0 ;
 if($idKonsultasi == ''){
     echo json_encode(
         array(

@@ -7,8 +7,10 @@ $db = $dbConn->getConnection();
 //initialize object
 $symptomp = new Symptomp($db);
 
-//input
-$idKategoriGejala = isset($_POST['id_kategori_gejala']) ? $_POST['id_kategori_gejala'] : 0;
+//query params
+$queryParam = parse_url($_SERVER['QUERY_STRING']);
+parse_str($queryParam['path'],$result);
+$idKategoriGejala = $result['id'] ? $result['id'] :  0 ;
 // var_dump($_POST['id_kategori_gejala']);
 if($idKategoriGejala == 0){
     echo json_encode(

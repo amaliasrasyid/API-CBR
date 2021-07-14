@@ -10,7 +10,7 @@ $sympCategory = new SymptompCategory($db);
 $stmt = $sympCategory->getSymptompCategory();
 $itemCount = $stmt->rowCount();
 
-//resposen
+//response
 if($itemCount > 0){
     if(http_response_code() == 200){
         $response = array(

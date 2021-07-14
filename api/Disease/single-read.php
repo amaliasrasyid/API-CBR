@@ -8,9 +8,13 @@ $db = $dbConn->getConnection();
 // initialize object
 $disease = new Disease($db);
 
-//input
-$idPenyakit = isset($_POST['id_penyakit']) ? $_POST['id_penyakit'] :  0 ;
-// var_dump($_POST['id_penyakit']);
+//query params
+$queryParam = parse_url($_SERVER['QUERY_STRING']);
+parse_str($queryParam['path'],$result);
+$idPenyakit = $result['id'] ? $result['id'] :  0 ;
+
+// var_dump($url);
+// var_dump($result['id']);
 if($idPenyakit == 0){
     echo json_encode(
         array(
