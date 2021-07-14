@@ -10,6 +10,7 @@ include_once '../../model/Solution.php';
 include_once '../../model/Kasus.php';
 include_once '../../model/Symptomp.php';
 include_once '../../model/SymptompCategory.php';
+include_once '../../model/SymptompConsultation.php';
 include_once '../../model/Consultation.php';
 include_once '../../model/ConsultationResult.php';
 include_once '../../helper/HttpResponseMessage.php';
