@@ -6,15 +6,13 @@ $dbConn = new DbConnection();
 $db = $dbConn->getConnection();
 
 // initialize object
-$disease = new Disease($db);
+$dsSolution = new DiseaseSolution($db);
 
 //query params
 $queryParam = parse_url($_SERVER['QUERY_STRING']);
 parse_str($queryParam['path'],$result);
 $idPenyakit = $result['id'] ? $result['id'] :  0 ;
-
-// var_dump($url);
-// var_dump($result['id']);
+// var_dump($queryParam['path']);
 if($idPenyakit == 0){
     echo json_encode(
         array(
@@ -26,41 +24,45 @@ if($idPenyakit == 0){
 }
 
 //query
-$stmt = $disease->getDiseasesById($idPenyakit);
+$stmt = $dsSolution->getDiseaseSolutions($idPenyakit);
 $itemCount = $stmt->rowCount();
-
 
 //response
 if($itemCount > 0){
     if(http_response_code() == 200){
         $response = array(
             'code' => 200,
-            'message' => 'Data Penyakit berhasil diperoleh',
-            'result' => new stdClass
+            'message' => 'Data detail penyakit berhasil diperoleh',
+            'result' => array()
         );
-
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
-            $disease->init($id_penyakit,$kd_penyakit,$nm_penyakit,$definisi);
-            // var_dump($item);
-             $response['result']=$disease;
+            //moving each var that have been extracted into object DiseaseSolution
+
+            $solution = new Solution();
+            $solution->init($id_solusi,$kd_solusi,$nm_solusi,$keterangan);
+
+            $dsSolution = new DiseaseSolution();
+            $dsSolution->init($id_penyakit_solusi,$id_penyakit,$solution);
+            array_push($response['result'],$dsSolution);
         }
         echo json_encode($response);
     }else{
         echo json_encode(
             array(
-                "message" => getHttpMessage(http_response_code()),
-                'code' => http_response_code()
+                'code' => http_response_code(),
+                'message' => getHttpMessage(http_response_code()),
+                'result' => array()
             )
         );
-    }     
-}
-else{
+    }
+}else{
     http_response_code(404);
     echo json_encode(
         array(
-            "message" => "Data Penyakit tidak ditemukan!",
-            'code' => 404
+            'message' => "Data detail Penyakit tidak ditemukan!",
+            'code' => 404,
+            'result' => array()
         )
     );
 }
