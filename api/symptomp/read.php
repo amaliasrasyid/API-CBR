@@ -12,8 +12,7 @@ $queryParam = parse_url($_SERVER['QUERY_STRING']);
 parse_str($queryParam['path'],$result);
 $idKategoriGejala = $result['kategori'] ? $result['kategori'] :  0 ;
 $idKonsultasi = $result['konsultasi'] ? $result['konsultasi'] : 0;
-// var_dump($_POST['id_kategori_gejala']);
-// var_dump($result['konsultasi']);
+
 if($idKategoriGejala == 0){
     echo json_encode(
         array(
@@ -35,7 +34,7 @@ if($idKategoriGejala == 0){
 //query
 $stmt = $symptomp->getSymptompByCategory($idKategoriGejala);
 $itemCount = $stmt->rowCount();
-// var_dump($itemCount);
+
 
 //response
 if($itemCount > 0){
@@ -52,13 +51,13 @@ if($itemCount > 0){
             //extract data
             extract($row);
             $row['isSelected'] = false;
-            // var_dump($id_gejala);
+            
             $existedData = $symptomp->isDataExistInConsult($idKonsultasi,$id_gejala);
             extract($existedData->fetch(PDO::FETCH_ASSOC));
             if($jml_data_exist  != 0){
                $row['isSelected'] = true;
             }
-            // var_dump($row) ;
+            
             $sympCategory = new SymptompCategory();
             $sympCategory->init($id_gejala_kategori,$gejala_kategori,$keterangan);
 

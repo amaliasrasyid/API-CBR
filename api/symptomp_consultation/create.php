@@ -11,8 +11,6 @@ $sympConsul = new SymptomConsultation($db);
 //input
 $idKonsultasi= isset($_POST['id_konsultasi']) ? $_POST['id_konsultasi'] : '';
 $listIdGejala= isset($_POST['list_id_gejala']) ? $_POST['list_id_gejala'] : '';
-// var_dump($_POST['list_id_gejala']);
-// var_dump($_POST['id_konsultasi']);
 if ($idKonsultasi == ''){
     echo json_encode(
         array(

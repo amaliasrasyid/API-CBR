@@ -30,7 +30,6 @@ if($itemCount > 0){
                 'nm_penyakit' => $nm_penyakit,
                 'definisi' => $definisi
             );
-            // var_dump($item);
             array_push($response['result'],$item);
         }
         echo json_encode($response);

@@ -39,7 +39,7 @@ if($itemCount > 0){
             //storing each var that have been extracted into each object 
 
             $symptomp = new Symptomp();
-            $symptomp->init($id_gejala,$kd_gejala,$nm_gejala,$bobot_parameter,$id_gejala_kategori);
+            $symptomp->init($id_gejala,$kd_gejala,$nm_gejala,$bobot_parameter,$id_gejala_kategori,false);
 
             $sympConsul->init($id_konsultasi_gejala, $id_konsultasi,$symptomp,$status);
             array_push($response['result'],$sympConsul);
