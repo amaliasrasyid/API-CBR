@@ -9,8 +9,10 @@ $db = $dbConn->getConnection();
 $sympConsul = new SymptomConsultation($db);
 
 //query params
-$idKonsultasi= isset($_POST['id_konsultasi']) ? $_POST['id_konsultasi'] : '';
-$listIdGejala= isset($_POST['list_id_gejala']) ? $_POST['list_id_gejala'] : '';
+$queryParam = parse_url($_SERVER['QUERY_STRING']);
+parse_str($queryParam['path'],$result);
+$idKonsultasi= $result['id_konsultasi'] ? $result['id_konsultasi'] : '';
+$listIdGejala= $result['id_gejala'] ? $result['id_gejala'] : '';
 if ($idKonsultasi == ''){
     echo json_encode(
         array(
@@ -32,9 +34,7 @@ if ($idKonsultasi == ''){
 //query
 $stmt = $sympConsul->delete($idKonsultasi,$listIdGejala);
 
-// var_dump($stmt->rowCount());
 //response
-//jika ada 1 data yg tidak terhapus karena suatu sebab, tetap mengembalikan 0 meski yg lain berhasil. hanya 1 jika semuanya 'sukses'
 if($stmt->rowCount() != 0){
     if(http_response_code() == 200){
         echo json_encode(array(
