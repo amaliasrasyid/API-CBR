@@ -35,9 +35,5 @@ class Symptomp {
         $stmt->execute();
         return $stmt;
     }
-
-    public function addSymptomConsultation(){
-
-    }
  
 }

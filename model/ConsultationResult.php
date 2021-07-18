@@ -78,7 +78,7 @@ class ConsultationResult{
 
     }
 
-    public function executeQuery($query){
+    private function executeQuery($query){
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;

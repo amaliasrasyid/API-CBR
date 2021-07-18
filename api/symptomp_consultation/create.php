@@ -32,15 +32,14 @@ if ($idKonsultasi == ''){
 }
 
 //query
-$stmt = $sympConsul->create($idKonsultasi,$listIdGejala);
+$stmt = $sympConsul->createOrUpdate($idKonsultasi,$listIdGejala);
 
 //response
 if($stmt){
     if(http_response_code() == 200){
         echo json_encode(array(
             'code' => 200,
-            'message' => 'Berhasil menambahkan konsultasi gejala',
-            'result' => new stdClass()
+            'message' => 'Berhasil menambahkan konsultasi gejala'
         ));
     }
 }else{
@@ -48,8 +47,7 @@ if($stmt){
     echo json_encode(
         array(
             'message' => 'Gagal menambahkan konsultasi gejala',
-            'code' => 409,
-            'result' => new stdClass()
+            'code' => 409
         )
     );
 }

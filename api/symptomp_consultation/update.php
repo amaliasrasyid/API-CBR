@@ -30,7 +30,7 @@ if ($idKonsultasi == ''){
 }
 
 //query
-$stmt = $sympConsul->create($idKonsultasi,$listIdGejala);
+$stmt = $sympConsul->update($idKonsultasi,$listIdGejala);
 
 //response
 if($stmt){

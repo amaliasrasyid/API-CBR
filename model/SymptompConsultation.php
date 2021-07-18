@@ -24,26 +24,49 @@ class SymptomConsultation {
         $this->status = $status;
     }
 
-    public function create($id_konsultasi,$list_id_gejala){
+    public function createOrUpdate($id_konsultasi,$list_id_gejala){
         // var_dump($list_id_gejala);
         $itemCount = count($list_id_gejala);
+        
         for($i = 0; $i < $itemCount; $i++){
-            $query = "INSERT INTO cbr_konsultasi_gejala (id_konsultasi, id_gejala, status) VALUES ('$id_konsultasi', '$list_id_gejala[$i]', 1)";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
+            if($this->isSameDataExist($id_konsultasi,$list_id_gejala[$i])){
+                $stmt = $this->update($id_konsultasi,$list_id_gejala[$i]);
+            }else{
+                $query = "INSERT INTO cbr_konsultasi_gejala (id_konsultasi, id_gejala, status) VALUES ('$id_konsultasi', '$list_id_gejala[$i]', 1)";
+                $stmt = $this->conn->prepare($query);
+                $stmt->execute();
+            }
         }
         return $stmt;
     }
 
     public function update($id_konsultasi,$list_id_gejala){
-        // var_dump($list_id_gejala);
         $itemCount = count($list_id_gejala);
+        // var_dump("proses update :".$itemCount);
         for($i = 0; $i < $itemCount; $i++){
             $query = "UPDATE cbr_konsultasi_gejala SET status=1 WHERE id_konsultasi='$id_konsultasi' AND id_gejala='$list_id_gejala[$i]";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
         }
         return $stmt;
+    }
+
+    private function delete($id_konsultasi,$list_id_gejala){
+        $itemCount = count($list_id_gejala);
+        for($i = 0; $i < $itemCount; $i++){
+            $query = "DELETE FROM `cbr_konsultasi_gejala` kg  WHERE kg.`id_konsultasi` = $id_konsultasi AND kg.id_gejala = $list_id_gejala[$i]";
+            $stmt = $this->executeQuery($query);
+        }
+        return $stmt;
+    }
+
+    private function isSameDataExist($id_konsultasi,$id_gejala){
+        $query = "SELECT kg.id_konsultasi, kg.id_gejala FROM cbr_konsultasi_gejala as kg WHERE id_konsultasi = $id_konsultasi AND id_gejala = $id_gejala";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        // var_dump("data exist = ".$stmt->rowCount());
+        // var_dump($stmt->rowCount() != 0 ? true : false);
+        return $stmt->rowCount() != 0 ? true : false;
     }
 
     public function getSymptompConsultation($id_konsultasi){
@@ -53,6 +76,12 @@ class SymptomConsultation {
                 a.id_gejala = c.id_gejala AND 
                 c.id_gejala_kategori = d.id_gejala_kategori AND
                 a.id_konsultasi =$id_konsultasi";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    private function executeQuery($query){
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
