@@ -51,10 +51,11 @@ class SymptomConsultation {
         return $stmt;
     }
 
-    private function delete($id_konsultasi,$list_id_gejala){
+    public function delete($id_konsultasi,$list_id_gejala){
         $itemCount = count($list_id_gejala);
         for($i = 0; $i < $itemCount; $i++){
-            $query = "DELETE FROM `cbr_konsultasi_gejala` kg  WHERE kg.`id_konsultasi` = $id_konsultasi AND kg.id_gejala = $list_id_gejala[$i]";
+            $query = "DELETE FROM cbr_konsultasi_gejala 
+            WHERE cbr_konsultasi_gejala.id_konsultasi = $id_konsultasi AND cbr_konsultasi_gejala.id_gejala = $list_id_gejala[$i]";
             $stmt = $this->executeQuery($query);
         }
         return $stmt;
