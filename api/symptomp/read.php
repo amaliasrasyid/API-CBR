@@ -10,12 +10,22 @@ $symptomp = new Symptomp($db);
 //query params
 $queryParam = parse_url($_SERVER['QUERY_STRING']);
 parse_str($queryParam['path'],$result);
-$idKategoriGejala = $result['id'] ? $result['id'] :  0 ;
+$idKategoriGejala = $result['kategori'] ? $result['kategori'] :  0 ;
+$idKonsultasi = $result['konsultasi'] ? $result['konsultasi'] : 0;
 // var_dump($_POST['id_kategori_gejala']);
+// var_dump($result['konsultasi']);
 if($idKategoriGejala == 0){
     echo json_encode(
         array(
             'message' => "input id_penyakit tidak boleh kosong"
+        )
+    );
+    http_response_code(404);
+    return;
+}else if($idKonsultasi == 0){
+    echo json_encode(
+        array(
+            'message' => "input id_konsultasi tidak boleh kosong"
         )
     );
     http_response_code(404);
@@ -25,6 +35,7 @@ if($idKategoriGejala == 0){
 //query
 $stmt = $symptomp->getSymptompByCategory($idKategoriGejala);
 $itemCount = $stmt->rowCount();
+// var_dump($itemCount);
 
 //response
 if($itemCount > 0){
@@ -34,14 +45,26 @@ if($itemCount > 0){
             'message' => 'Data gejala berdasarkan kategorinya ('.$idKategoriGejala.') berhasil diperoleh!',
             'result' => array()
         );
+        $result = array();
+
+        //check is symptomp have been selected by user
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            //extract data
             extract($row);
-            
+            $row['isSelected'] = false;
+            // var_dump($id_gejala);
+            $existedData = $symptomp->isDataExistInConsult($idKonsultasi,$id_gejala);
+            extract($existedData->fetch(PDO::FETCH_ASSOC));
+            if($jml_data_exist  != 0){
+               $row['isSelected'] = true;
+            }
+            // var_dump($row) ;
             $sympCategory = new SymptompCategory();
             $sympCategory->init($id_gejala_kategori,$gejala_kategori,$keterangan);
 
             $item = new Symptomp();
-            $item->init($id_gejala,$kd_gejala,$nm_gejala,$bobot_parameter,$sympCategory);
+            $item->init($id_gejala,$kd_gejala,$nm_gejala,$bobot_parameter,$sympCategory,$row['isSelected']);
+
             array_push($response['result'],$item);
         }
         echo json_encode($response);
