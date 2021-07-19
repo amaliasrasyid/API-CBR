@@ -31,7 +31,7 @@ class Disease{
         return $stmt;
     }
 
-    public function getDiseasesById($id_penyakit){
+    public function getDiseaseById($id_penyakit){
         $query = "SELECT penyakit.* FROM cbr_penyakit as penyakit WHERE penyakit.id_penyakit = $id_penyakit";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
