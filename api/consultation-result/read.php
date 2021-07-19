@@ -5,10 +5,27 @@ require_once '../../utils/HeaderTemplate.php';
 $dbConn = new DbConnection();
 $db = $dbConn->getConnection();
 
+//query params
+$queryParam = parse_url($_SERVER['QUERY_STRING']);
+parse_str($queryParam['path'],$result);
+$idKonsultasi = $result['konsultasi'] ? $result['konsultasi'] : 0;
+
+if($idKonsultasi == 0){
+    echo json_encode(
+        array(
+        'message' => 'input id_konsultasi tidak boleh kosong',
+        'code' => 404
+        )
+    );
+    http_response_code(404);
+    return;
+}
+
+
 // initialize object
 $consulResult = new ConsultationResult($db);
-$consulResult->calculateResult(82);
-$stmt = $consulResult->getConsultResult(82);
+$consulResult->calculateResult($idKonsultasi);
+$stmt = $consulResult->getConsultResult($idKonsultasi);
 $itemCount = $stmt->rowCount();
 
 //response
