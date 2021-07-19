@@ -15,7 +15,8 @@ $idKonsultasi = $result['id'] ? $result['id'] :  0 ;
 if($idKonsultasi == ''){
     echo json_encode(
         array(
-            'message' => "input id konsultasi tidak boleh kosong"
+            'message' => "input id konsultasi tidak boleh kosong",
+            'code' => 404
         )
     );
     http_response_code(404);

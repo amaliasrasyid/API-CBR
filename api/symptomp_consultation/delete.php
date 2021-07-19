@@ -9,14 +9,16 @@ $db = $dbConn->getConnection();
 $sympConsul = new SymptomConsultation($db);
 
 //query params
-$queryParam = parse_url($_SERVER['QUERY_STRING']);
-parse_str($queryParam['path'],$result);
-$idKonsultasi= $result['id_konsultasi'] ? $result['id_konsultasi'] : '';
-$listIdGejala= $result['id_gejala'] ? $result['id_gejala'] : '';
+// $queryParam = parse_url($_SERVER['QUERY_STRING']);
+// parse_str($queryParam['path'],$result);
+$idKonsultasi = isset($_POST['id_konsultasi']) ? $_POST['id_konsultasi'] : '';
+$listIdGejala = isset($_POST['id_gejala']) ? $_POST['id_gejala'] : '';
+var_dump($listIdGejala);
 if ($idKonsultasi == ''){
     echo json_encode(
         array(
-            'message' => "input id konsultasi tidak boleh kosong"
+            'message' => "input id konsultasi tidak boleh kosong",
+            'code' => 404
         )
     );
     http_response_code(404);

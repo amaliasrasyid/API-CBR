@@ -14,7 +14,8 @@ $tanggal = date('Y-m-d H:i:s');
 if ($namaKonsul == ''){
     echo json_encode(
         array(
-            'message' => "input nama tidak boleh kosong"
+            'message' => "input nama tidak boleh kosong",
+            'code' => 404
         )
     );
     http_response_code(404);

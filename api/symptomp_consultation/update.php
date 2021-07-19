@@ -22,7 +22,8 @@ if ($idKonsultasi == ''){
 }else if(empty($listIdGejala)){
     echo json_encode(
         array(
-            'message' => "input id gejala tidak boleh kosong"
+            'message' => "input id gejala tidak boleh kosong",
+            'code' => 404
         )
     );
     http_response_code(404);

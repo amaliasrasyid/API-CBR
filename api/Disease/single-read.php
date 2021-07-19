@@ -16,7 +16,8 @@ $idPenyakit = $result['id'] ? $result['id'] :  0 ;
 if($idPenyakit == 0){
     echo json_encode(
         array(
-            'message' => "input id_penyakit tidak boleh kosong"
+            'message' => "input id_penyakit tidak boleh kosong",
+            'code' => 404
         )
     );
     http_response_code(404);

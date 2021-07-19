@@ -14,7 +14,8 @@ $listIdGejala= isset($_POST['list_id_gejala']) ? $_POST['list_id_gejala'] : '';
 if ($idKonsultasi == ''){
     echo json_encode(
         array(
-            'message' => "input id konsultasi tidak boleh kosong"
+            'message' => "input id konsultasi tidak boleh kosong",
+            'code' => 404
         )
     );
     http_response_code(404);
@@ -22,7 +23,8 @@ if ($idKonsultasi == ''){
 }else if(empty($listIdGejala)){
     echo json_encode(
         array(
-            'message' => "input id gejala tidak boleh kosong"
+            'message' => "input id gejala tidak boleh kosong",
+            'code' => 404
         )
     );
     http_response_code(404);
