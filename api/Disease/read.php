@@ -28,7 +28,7 @@ if($itemCount > 0){
                 'id_penyakit' => $id_penyakit,
                 'kd_penyakit' => $kd_penyakit,
                 'nm_penyakit' => $nm_penyakit,
-                'definisi' => $definisi
+                'definisi' => removeHtmlTags($definisi)
             );
             array_push($response['result'],$item);
         }

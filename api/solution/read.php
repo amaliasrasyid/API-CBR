@@ -27,7 +27,7 @@ if($itemCount > 0){
                 'id_solusi' => $id_solusi,
                 'kd_solusi' => $kd_solusi,
                 'nm_solusi' => $nm_solusi,
-                'keterangan' => $keterangan
+                'keterangan' => removeHtmlTags($keterangan)
             );
             array_push($response['result'],$item);
         }
