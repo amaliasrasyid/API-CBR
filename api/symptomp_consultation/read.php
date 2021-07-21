@@ -42,6 +42,7 @@ if($itemCount > 0){
             $symptomp = new Symptomp();
             $symptomp->init($id_gejala,$kd_gejala,$nm_gejala,$bobot_parameter,$id_gejala_kategori,false);
 
+            $sympConsul = new SymptomConsultation();
             $sympConsul->init($id_konsultasi_gejala, $id_konsultasi,$symptomp,$status);
             array_push($response['result'],$sympConsul);
         }
