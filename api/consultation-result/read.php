@@ -43,7 +43,7 @@ if($itemCount > 0){
             $case->init($id_kasus,$nama,$tanggal,$status);
 
             $disease = new Disease();
-            $disease->init($id_penyakit,$kd_penyakit,$nm_penyakit,$definisi);
+            $disease->init($id_penyakit,$kd_penyakit,$nm_penyakit,removeHtmlTags($definisi));
 
             $item = new ConsultationResult();
             $item->init($id_konsultasi_hasil,$case,$disease,$nilai,$status);

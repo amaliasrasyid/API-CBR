@@ -50,11 +50,11 @@ class ConsultationResult{
             if($hasil > 0){
                 //check if data exist
                 $oldData = $this->executeQuery("SELECT id_konsultasi, id_kasus, nilai FROM cbr_konsultasi_hasil WHERE id_konsultasi=$id_konsultasi AND id_penyakit=$id_penyakit");
-                extract($oldData->fetch(PDO::FETCH_ASSOC));
                 if($oldData->rowCount() == 0){
                     $this->executeQuery("INSERT INTO cbr_konsultasi_hasil (id_konsultasi, id_kasus, id_penyakit, nilai, status) 
                         VALUES ($id_konsultasi, $id_kasus, $id_penyakit, $hasil, 1)");
                 }else{
+                    extract($oldData->fetch(PDO::FETCH_ASSOC));
                     if($id_kasus == $row['id_kasus']){
                         $this->executeQuery("UPDATE cbr_konsultasi_hasil SET nilai='$hasil', status=1
                             WHERE id_konsultasi=$id_konsultasi AND id_kasus=$id_kasus AND id_penyakit=$id_penyakit'");
