@@ -11,7 +11,7 @@ $sympConsul = new SymptomConsultation($db);
 //query params
 $queryParam = parse_url($_SERVER['QUERY_STRING']);
 parse_str($queryParam['path'],$result);
-$idKonsultasi = $result['id'] ? $result['id'] :  0 ;
+$idKonsultasi = $result['id'] ? $result['id'] : '' ;
 if($idKonsultasi == ''){
     echo json_encode(
         array(

@@ -8,7 +8,7 @@ $db = $dbConn->getConnection();
 //query params
 $queryParam = parse_url($_SERVER['QUERY_STRING']);
 parse_str($queryParam['path'],$result);
-$idKonsultasi = $result['konsultasi'] ? $result['konsultasi'] : 0;
+$idKonsultasi = $result['konsultasi'] ? $result['konsultasi'] : '';
 
 if($idKonsultasi == 0){
     echo json_encode(

@@ -51,16 +51,6 @@ class SymptomConsultation {
         return $stmt;
     }
 
-    public function delete($id_konsultasi,$list_id_gejala){
-        $itemCount = count($list_id_gejala);
-        for($i = 0; $i < $itemCount; $i++){
-            $query = "DELETE FROM cbr_konsultasi_gejala 
-            WHERE cbr_konsultasi_gejala.id_konsultasi = $id_konsultasi AND cbr_konsultasi_gejala.id_gejala = $list_id_gejala[$i]";
-            $stmt = $this->executeQuery($query);
-        }
-        return $stmt;
-    }
-
     private function isSameDataExist($id_konsultasi,$id_gejala){
         $query = "SELECT kg.id_konsultasi, kg.id_gejala FROM cbr_konsultasi_gejala as kg WHERE id_konsultasi = $id_konsultasi AND id_gejala = $id_gejala";
         $stmt = $this->conn->prepare($query);
@@ -80,6 +70,19 @@ class SymptomConsultation {
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
+    }
+
+    public function delete($id_konsultasi){
+        $state = false;
+        $deleteResult = $this->executeQuery("DELETE FROM cbr_konsultasi_hasil WHERE cbr_konsultasi_hasil.id_konsultasi = $id_konsultasi");
+
+        if($deleteResult->rowCount() != 0){
+            $deleteSymptomp = $this->executeQuery("DELETE FROM cbr_konsultasi_gejala WHERE cbr_konsultasi_gejala.id_konsultasi = $id_konsultasi");
+            if($deleteSymptomp->rowCount() != 0){
+                $state = true;
+            }  
+        }
+        return $state;
     }
 
     private function executeQuery($query){

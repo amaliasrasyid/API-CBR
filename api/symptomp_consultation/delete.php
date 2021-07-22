@@ -9,11 +9,9 @@ $db = $dbConn->getConnection();
 $sympConsul = new SymptomConsultation($db);
 
 //query params
-// $queryParam = parse_url($_SERVER['QUERY_STRING']);
-// parse_str($queryParam['path'],$result);
-$idKonsultasi = isset($_POST['id_konsultasi']) ? $_POST['id_konsultasi'] : '';
-$listIdGejala = isset($_POST['id_gejala']) ? $_POST['id_gejala'] : '';
-var_dump($listIdGejala);
+$queryParam = parse_url($_SERVER['QUERY_STRING']);
+parse_str($queryParam['path'],$result);
+$idKonsultasi = $result['konsultasi'] ?: '';
 if ($idKonsultasi == ''){
     echo json_encode(
         array(
@@ -23,32 +21,24 @@ if ($idKonsultasi == ''){
     );
     http_response_code(404);
     return;
-}else if(empty($listIdGejala)){
-    echo json_encode(
-        array(
-            'message' => "input id gejala tidak boleh kosong"
-        )
-    );
-    http_response_code(404);
-    return;
 }
 
 //query
-$stmt = $sympConsul->delete($idKonsultasi,$listIdGejala);
+$stmt = $sympConsul->delete($idKonsultasi);
 
 //response
-if($stmt->rowCount() != 0){
+if($stmt){
     if(http_response_code() == 200){
         echo json_encode(array(
             'code' => 200,
-            'message' => 'Berhasil menghapus konsultasi gejala'
+            'message' => 'Berhasil menghapus data gejala dan hasil konsultasi'
         ));
     }
 }else{
     http_response_code(409);
     echo json_encode(
         array(
-            'message' => 'Gagal menghapus konsultasi gejala',
+            'message' => 'Gagal menghapus data gejala konsultasi atau data hasil konsultasi',
             'code' => 409
         )
     );

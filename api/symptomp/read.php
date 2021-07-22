@@ -10,8 +10,8 @@ $symptomp = new Symptomp($db);
 //query params
 $queryParam = parse_url($_SERVER['QUERY_STRING']);
 parse_str($queryParam['path'],$result);
-$idKategoriGejala = $result['kategori'] ? $result['kategori'] :  0 ;
-$idKonsultasi = $result['konsultasi'] ? $result['konsultasi'] : 0;
+$idKategoriGejala = $result['kategori'] ? $result['kategori'] :  '' ;
+$idKonsultasi = $result['konsultasi'] ? $result['konsultasi'] : '';
 
 if($idKategoriGejala == 0){
     echo json_encode(

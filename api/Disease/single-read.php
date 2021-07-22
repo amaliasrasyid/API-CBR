@@ -11,7 +11,7 @@ $dsSolution = new DiseaseSolution($db);
 //query params
 $queryParam = parse_url($_SERVER['QUERY_STRING']);
 parse_str($queryParam['path'],$result);
-$idPenyakit = $result['id'] ? $result['id'] :  0 ;
+$idPenyakit = $result['id'] ? $result['id'] :  '' ;
 // var_dump($queryParam['path']);
 if($idPenyakit == 0){
     echo json_encode(
