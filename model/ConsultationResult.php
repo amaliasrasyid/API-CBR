@@ -8,7 +8,6 @@ class ConsultationResult{
  
     //table column
     public $id_konsultasi_hasil;
-    public $id_konsultasi;
     public $case;
     public $disease;
     public $nilai;
