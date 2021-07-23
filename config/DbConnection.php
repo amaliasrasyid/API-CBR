@@ -1,7 +1,7 @@
 <?php
 class DbConnection{
     private $dbhost="127.0.0.1";
-    private $dbname="project_cbr";
+    private $dbname="project_wcbr";
     private $dbuser="root";
     private $dbPassword="";
 

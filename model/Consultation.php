@@ -1,15 +1,15 @@
 <?php
+require_once '../../utils/HeaderTemplate.php';
+
 class Consultation {
     //instance connection
     private $conn;
-
-    //table name
-    private $table_name = "cbr_konsultasi";
 
     //table column
     public $id_konsultasi;
     public $nama;
     public $tanggal;
+    public $status;
 
     private $lastInsertedId ;
 
@@ -25,17 +25,14 @@ class Consultation {
     }
 
     public function create($nama_konsul,$tanggal){
-        $query = "INSERT INTO cbr_konsultasi(nama, tanggal, status) VALUES ('$nama_konsul', '$tanggal', 1)";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+        $query = "INSERT INTO konsultasi(nama, tanggal, status) VALUES ('$nama_konsul', '$tanggal', 1)";
+        $stmt = executeQuery($this->conn,$query);
         $this->lastInsertedId = $this->conn->lastInsertId();
         return $stmt;
     }
 
     public function getLastCreatedConsultation(){
-        $query = "SELECT k.* FROM cbr_konsultasi k WHERE k.id_konsultasi = $this->lastInsertedId";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
+        $query = "SELECT k.* FROM konsultasi k WHERE k.id_konsultasi = $this->lastInsertedId";
+        return executeQuery($this->conn,$query);
     }
 }

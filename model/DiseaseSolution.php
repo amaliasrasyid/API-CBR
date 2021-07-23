@@ -1,13 +1,9 @@
 <?php
-include_once 'Solution.php';
-include_once 'Disease.php';
+require_once '../../utils/HeaderTemplate.php';
 
 class DiseaseSolution{
     //instance connection
     private $conn;
-
-    //table name
-    private $table_name="cbr_penyakit_solusi";
 
     //table column
     public $id_penyakit_solusi;
@@ -27,10 +23,9 @@ class DiseaseSolution{
 
     public function getDiseaseSolutions($id_penyakit){
         $query = "SELECT a.id_penyakit_solusi, b.*,c.id_penyakit
-        FROM cbr_penyakit_solusi as a, cbr_solusi as b, cbr_penyakit as c 
+        FROM penyakit_solusi as a, solusi as b, penyakit as c 
         WHERE a.id_solusi=b.id_solusi AND a.id_penyakit=c.id_penyakit AND c.id_penyakit=$id_penyakit";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
+
+        return executeQuery($this->conn,$query);
     }
 }

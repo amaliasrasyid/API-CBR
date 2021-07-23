@@ -1,4 +1,6 @@
 <?php
+require_once '../../utils/HeaderTemplate.php';
+
 class Solution{
     //instance connection
     private $conn;
@@ -24,9 +26,7 @@ class Solution{
     }
 
     public function getSolutions(){
-        $query = "SELECT id_solusi, kd_solusi, nm_solusi, keterangan FROM cbr_solusi";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
+        $query = "SELECT id_solusi, kd_solusi, nm_solusi, keterangan FROM ".$this->table_name;
+        return executeQuery($this->conn,$query);
     }
 }

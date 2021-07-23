@@ -24,7 +24,6 @@ if($idKonsultasi == 0){
 
 // initialize object
 $consulResult = new ConsultationResult($db);
-$consulResult->calculateResult($idKonsultasi);
 $stmt = $consulResult->getConsultResult($idKonsultasi);
 $itemCount = $stmt->rowCount();
 
@@ -39,14 +38,17 @@ if($itemCount > 0){
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
             
-            $case = new Kasus();
-            $case->init($id_kasus,$nama,$tanggal,$status);
+            $consultation = new Consultation();
+            $consultation->init($id_konsultasi,$nama,$tanggal,$status);
+
+            $medicine = new Medicine();
+            $medicine->init($id_obat,$kd_obat,$nm_obat);
 
             $disease = new Disease();
             $disease->init($id_penyakit,$kd_penyakit,$nm_penyakit,removeHtmlTags($definisi));
 
             $item = new ConsultationResult();
-            $item->init($id_konsultasi_hasil,$case,$disease,$nilai,$status);
+            $item->init($id_konsultasi_hasil,$consultation,$disease,$medicine,$status);
             array_push($response['result'], $item);
         }
         echo json_encode($response);

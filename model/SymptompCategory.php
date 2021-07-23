@@ -1,10 +1,9 @@
 <?php
+require_once '../../utils/HeaderTemplate.php';
+
 class SymptompCategory{
     //instance connection
     private $conn;
-
-    //table name
-    private $table_name = "cbr_gejala_kategori";
 
     //table column
     public $id_gejala_kategori;
@@ -23,9 +22,7 @@ class SymptompCategory{
     }
 
     public function getSymptompCategory(){
-        $query = "SELECT gk.* FROM cbr_gejala_kategori gk ORDER BY id_gejala_kategori ASC";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
+        $query = "SELECT gk.* FROM gejala_kategori gk ORDER BY id_gejala_kategori ASC";
+        return executeQuery($this->conn,$query);
     }
 }
