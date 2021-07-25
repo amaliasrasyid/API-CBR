@@ -9,8 +9,9 @@ $db = $dbConn->getConnection();
 $queryParam = parse_url($_SERVER['QUERY_STRING']);
 parse_str($queryParam['path'],$result);
 $idKonsultasi = $result['konsultasi'] ? $result['konsultasi'] : '';
+$idsSelectedSymptomp = isset($_POST['id_gejala']) ? $_POST['id_gejala'] : '';
 
-if($idKonsultasi == 0){
+if($idKonsultasi == ''){
     echo json_encode(
         array(
         'message' => 'input id_konsultasi tidak boleh kosong',
@@ -19,13 +20,20 @@ if($idKonsultasi == 0){
     );
     http_response_code(404);
     return;
+}else if(empty($idsSelectedSymptomp)){
+    echo json_encode(array(
+        'message' => 'input id gejala tidak boleh kosong',
+        'code'=> 404
+    ));
+    http_response_code(404);
+    return;
 }
 
 
 // initialize object
 $consulResult = new ConsultationResult($db);
-$stmt = $consulResult->getConsultResult($idKonsultasi);
-$itemCount = $stmt->rowCount();
+$stmt = $consulResult->consultResult($idsSelectedSymptomp);
+// $itemCount = $stmt->rowCount();
 
 //response
 if($itemCount > 0){
