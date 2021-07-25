@@ -8,10 +8,16 @@ $db = $dbConn->getConnection();
 //initialize object
 $sympConsul = new SymptomConsultation($db);
 
-//query params
-$queryParam = parse_url($_SERVER['QUERY_STRING']);
-parse_str($queryParam['path'],$result);
-$idKonsultasi = $result['konsultasi'] ?: '';
+//get path
+$requestUri = $_SERVER['REQUEST_URI'];
+// $sgs = parse_url($queryParam,);
+// var_dump($requestUri);
+
+$path = substr($requestUri,38);
+// var_dump($path);
+
+$idKonsultasi = $path ?: '';
+// var_dump($idKonsultasi);
 if ($idKonsultasi == ''){
     echo json_encode(
         array(
