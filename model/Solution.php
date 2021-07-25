@@ -6,7 +6,7 @@ class Solution{
     private $conn;
 
     //table name
-    private $table_name="cbr_solusi";
+    private $table_name="solusi";
 
     //table column
     public $id_solusi;

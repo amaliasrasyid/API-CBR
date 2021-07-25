@@ -5,6 +5,7 @@ include_once '../../model/Medicine.php';
 include_once '../../model/Disease.php';
 include_once '../../model/DiseaseSolution.php';
 include_once '../../model/DiseaseSymptomp.php';
+include_once '../../model/DiseaseMedicine.php';
 include_once '../../model/Solution.php';
 include_once '../../model/Symptomp.php';
 include_once '../../model/SymptompCategory.php';

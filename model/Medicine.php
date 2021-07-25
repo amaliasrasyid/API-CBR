@@ -20,4 +20,8 @@ class Medicine{
         $this->kd_obat = $kd_obat;
         $this->nm_obat = $nm_obat;
     }
+
+    public function getMedicineById($id_obat){
+        return executeQuery($this->conn,"SELECT * FROM obat WHERE id_obat=$id_obat");
+    }
 }

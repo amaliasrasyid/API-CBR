@@ -5,10 +5,8 @@ require_once '../../utils/HeaderTemplate.php';
 $dbConn = new DbConnection();
 $db = $dbConn->getConnection();
 
-//query params
-$queryParam = parse_url($_SERVER['QUERY_STRING']);
-parse_str($queryParam['path'],$result);
-$idKonsultasi = $result['konsultasi'] ? $result['konsultasi'] : '';
+//query params=
+$idKonsultasi = isset($_POST['konsultasi']) ? $_POST['konsultasi'] : '';
 $idsSelectedSymptomp = isset($_POST['id_gejala']) ? $_POST['id_gejala'] : '';
 
 if($idKonsultasi == ''){
@@ -32,8 +30,9 @@ if($idKonsultasi == ''){
 
 // initialize object
 $consulResult = new ConsultationResult($db);
-$stmt = $consulResult->consultResult($idsSelectedSymptomp);
-// $itemCount = $stmt->rowCount();
+$consulResult->consultResult($idKonsultasi,$idsSelectedSymptomp);
+$stmt= $consulResult->getConsultResult($idKonsultasi);
+$itemCount = $stmt->rowCount();
 
 //response
 if($itemCount > 0){
@@ -45,18 +44,17 @@ if($itemCount > 0){
         );
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
+            // var_dump($row);
             
-            $consultation = new Consultation();
-            $consultation->init($id_konsultasi,$nama,$tanggal,$status);
+            $disease = new disease();
+            $disease->init($id_penyakit,$kd_penyakit,$nm_penyakit,$definisi);
 
             $medicine = new Medicine();
             $medicine->init($id_obat,$kd_obat,$nm_obat);
 
-            $disease = new Disease();
-            $disease->init($id_penyakit,$kd_penyakit,$nm_penyakit,removeHtmlTags($definisi));
 
             $item = new ConsultationResult();
-            $item->init($id_konsultasi_hasil,$consultation,$disease,$medicine,$status);
+            $item->init($id_konsultasi_hasil,$disease,$medicine,$nilai,$status);
             array_push($response['result'], $item);
         }
         echo json_encode($response);

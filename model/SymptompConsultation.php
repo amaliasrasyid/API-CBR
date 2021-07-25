@@ -24,18 +24,18 @@ class SymptomConsultation {
     }
 
     public function createOrUpdate($id_konsultasi,$list_id_gejala){
-        // var_dump($list_id_gejala);
         $itemCount = count($list_id_gejala);
-        
+
         for($i = 0; $i < $itemCount; $i++){
             if($this->isSameDataExist($id_konsultasi,$list_id_gejala[$i])){
-                $stmt = $this->update($id_konsultasi,$list_id_gejala[$i]);
+                $result = $this->update($id_konsultasi,$list_id_gejala[$i]);
             }else{
                 $query = "INSERT INTO konsultasi_gejala (id_konsultasi, id_gejala, status) VALUES ('$id_konsultasi', '$list_id_gejala[$i]', 1)";
-                executeQuery($this->conn,$query);
+                $stmt = $this->conn->prepare($query);
+                $result = $stmt->execute();
             }
         }
-        return $stmt;
+        return $result;
     }
 
     public function update($id_konsultasi,$list_id_gejala){
@@ -49,7 +49,7 @@ class SymptomConsultation {
     }
 
     private function isSameDataExist($id_konsultasi,$id_gejala){
-        $query = "SELECT kg.id_konsultasi, kg.id_gejala FROM konsultasi_gejala as kg WHERE id_konsultasi = $id_konsultasi AND id_gejala = $id_gejala";
+        $query = "SELECT kg.id_konsultasi, kg.id_gejala FROM konsultasi_gejala as kg WHERE kg.id_konsultasi = $id_konsultasi AND kg.id_gejala = $id_gejala";
         $stmt = executeQuery($this->conn,$query);
         return $stmt->rowCount() != 0 ? true : false;
     }

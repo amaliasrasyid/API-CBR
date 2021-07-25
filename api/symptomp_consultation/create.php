@@ -33,6 +33,7 @@ if ($idKonsultasi == ''){
 
 //query
 $stmt = $sympConsul->createOrUpdate($idKonsultasi,$listIdGejala);
+// var_dump($stmt);
 
 //response
 if($stmt){
